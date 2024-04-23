@@ -24,9 +24,19 @@ class Ville
     #[ORM\OneToMany(targetEntity: Rue::class, mappedBy: 'ville')]
     private Collection $rue;
 
+    /**
+     * @var Collection<int, Adresse>
+     */
+    #[ORM\OneToMany(targetEntity: Adresse::class, mappedBy: 'ville')]
+    private Collection $adresses;
+
+    #[ORM\Column(length: 255)]
+    private ?string $relation = null;
+
     public function __construct()
     {
         $this->rue = new ArrayCollection();
+        $this->adresses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -72,6 +82,48 @@ class Ville
                 $rue->setVille(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Adresse>
+     */
+    public function getAdresses(): Collection
+    {
+        return $this->adresses;
+    }
+
+    public function addAdress(Adresse $adress): static
+    {
+        if (!$this->adresses->contains($adress)) {
+            $this->adresses->add($adress);
+            $adress->setVille($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdress(Adresse $adress): static
+    {
+        if ($this->adresses->removeElement($adress)) {
+            // set the owning side to null (unless already changed)
+            if ($adress->getVille() === $this) {
+                $adress->setVille(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getRelation(): ?string
+    {
+        return $this->relation;
+    }
+
+    public function setRelation(string $relation): static
+    {
+        $this->relation = $relation;
 
         return $this;
     }

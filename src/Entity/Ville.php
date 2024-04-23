@@ -30,8 +30,7 @@ class Ville
     #[ORM\OneToMany(targetEntity: Adresse::class, mappedBy: 'ville')]
     private Collection $adresses;
 
-    #[ORM\Column(length: 255)]
-    private ?string $relation = null;
+    
 
     public function __construct()
     {
@@ -116,7 +115,7 @@ class Ville
         return $this;
     }
 
-    public function getRelation(): ?string
+    /*public function getRelation(): ?string
     {
         return $this->relation;
     }
@@ -126,5 +125,5 @@ class Ville
         $this->relation = $relation;
 
         return $this;
-    }
+    }*/
 }

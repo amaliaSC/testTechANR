@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Rue{% endblock %}
+
+{% block body %}
+    <h1>Edit Rue</h1>
+
+    {{ include('rue_controller_r/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_rue_controller_r_index') }}">back to list</a>
+
+    {{ include('rue_controller_r/_delete_form.html.twig') }}
+{% endblock %}
